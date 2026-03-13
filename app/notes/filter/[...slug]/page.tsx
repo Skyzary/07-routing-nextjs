@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { getNotes } from '../../../../lib/api';
-import NotesFilterClient from './NotesFilter.client';
+import NotesClient from './Notes.client'; // Змінив імпорт на Notes.client
 
 export default async function FilteredNotesPage({
   params,
@@ -12,7 +12,7 @@ export default async function FilteredNotesPage({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const activeTag = slug?.[0]; // Змінив tag на slug
+  const activeTag = slug?.[0];
   const queryClient = new QueryClient();
 
   // Використовуємо activeTag, отриманий з slug
@@ -25,7 +25,7 @@ export default async function FilteredNotesPage({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesFilterClient tag={activeTag} />
+      <NotesClient tag={activeTag} />
     </HydrationBoundary>
   );
 }
