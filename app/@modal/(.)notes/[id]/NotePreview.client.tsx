@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import Modal from '../../../../components/Modal/Modal';
 import { useQuery } from '@tanstack/react-query';
 import { getNoteById } from '../../../../lib/api';
-import css from './NoteDetails.module.css'; // Assuming this file exists or should be created
 import { BarLoader } from 'react-spinners';
 import Error from '../../../../components/Error/Error';
 
@@ -14,6 +13,7 @@ export default function NotePreviewClient({ id }: { id: string }) {
   const { data: note, isLoading, isError } = useQuery({
     queryKey: ['note', id],
     queryFn: () => getNoteById(id),
+    refetchOnMount: false, // Додана ця опція згідно з фідбеком
   });
 
   if (!id) return null;
